@@ -26,7 +26,7 @@ export default wrapWithLoggerContext(
         (url) => {
           if (allowedUrlsPattern) {
             const regex = new RegExp(allowedUrlsPattern);
-
+            logger.info("allowedUrlsPattern is true");
             return regex.test(url);
           }
 
