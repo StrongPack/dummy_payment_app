@@ -11,9 +11,9 @@ services:
       # - "3082:3000"
     environment:
       - PORT=3001
-      - APP_IFRAME_BASE_URL=https://saleor.20pack.ir/dummy
-      - APP_API_BASE_URL=https://saleor.20pack.ir/dummy
-      - APP_DOMAIN=https://saleor.20pack.ir/dummy
+      - APP_IFRAME_BASE_URL=https://20pack.ir/dummy/
+      - APP_API_BASE_URL=https://20pack.ir/dummy/
+      - APP_DOMAIN=https://20pack.ir/dummy/
       - SALEOR_API_URL=https://saleor.20pack.ir/graphql/
       - ALLOWED_DOMAIN_PATTERN=.*
     networks:
