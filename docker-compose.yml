@@ -8,11 +8,15 @@ services:
     restart: unless-stopped
     ports:
       - "3081:3001"
-      - "3082:3000"
+      # - "3082:3000"
     environment:
+      - HOST=0.0.0.0
       - PORT=3001
+      - APP_IFRAME_BASE_URL=https://saleor.20pack.ir/dummy
+      - APP_API_BASE_URL=https://saleor.20pack.ir/dummy
       - APP_DOMAIN=https://saleor.20pack.ir/dummy
       - SALEOR_API_URL=https://saleor.20pack.ir/graphql/
+      - ALLOWED_DOMAIN_PATTERN=.*
     networks:
       - strongpack-network
     env_file:
