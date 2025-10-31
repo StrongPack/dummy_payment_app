@@ -1,10 +1,10 @@
 services:
-  dummy-payment-app:
+  dummy_payment_app:
     image: ghcr.io/strongpack/storefront:latest
     # build:
     #   context: .
     #   dockerfile: Dockerfile
-    container_name: dummy-payment-app
+    container_name: dummy_payment_app
     restart: unless-stopped
     ports:
       - "3012:3001"
