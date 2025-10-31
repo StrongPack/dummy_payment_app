@@ -10,7 +10,6 @@ services:
       - "3081:3001"
       # - "3082:3000"
     environment:
-      - HOST=0.0.0.0
       - PORT=3001
       - APP_IFRAME_BASE_URL=https://saleor.20pack.ir/dummy
       - APP_API_BASE_URL=https://saleor.20pack.ir/dummy
