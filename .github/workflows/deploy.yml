@@ -34,15 +34,15 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and Push dummy-payment-app image
+      - name: Build and Push dummy_payment_app image
         uses: docker/build-push-action@v4
         with:
           context: .
           push: true
-          # tags: ghcr.io/${{ env.REPO_OWNER_LC }}/dummy-payment-app:${{ github.sha }}
+          # tags: ghcr.io/${{ env.REPO_OWNER_LC }}/dummy_payment_app:${{ github.sha }}
           tags: |
-            ghcr.io/${{ env.REPO_OWNER_LC }}/dummy-payment-app:${{ github.sha }}
-            ghcr.io/${{ env.REPO_OWNER_LC }}/dummy-payment-app:latest
+            ghcr.io/${{ env.REPO_OWNER_LC }}/dummy_payment_app:${{ github.sha }}
+            ghcr.io/${{ env.REPO_OWNER_LC }}/dummy_payment_app:latest
           build-args: |
             NEXT_PUBLIC_SALEOR_API_URL=https://saleor.20pack.ir/graphql/
 
@@ -74,18 +74,18 @@ jobs:
             
 
             echo "Preparing backend directory..."
-            if [ ! -d "/home/strongpack/dummy-payment-app/.git" ]; then
+            if [ ! -d "/home/strongpack/dummy_payment_app/.git" ]; then
                 echo "Project not found. Cloning..."
-                git clone git@github.com:StrongPack/dummy-payment-app.git /home/strongpack/dummy-payment-app
+                git clone git@github.com:StrongPack/dummy_payment_app.git /home/strongpack/dummy_payment_app
             else
                 echo "Project exists. Pulling latest changes..."
-                cd /home/strongpack/dummy-payment-app
+                cd /home/strongpack/dummy_payment_app
                 git fetch origin
                 git reset --hard origin/main
                 git pull origin main
             fi
 
-            cd /home/strongpack/dummy-payment-app
+            cd /home/strongpack/dummy_payment_app
 
             echo "Creating .env file..."
             echo "${{ secrets.ENV }}" > .env
@@ -97,15 +97,15 @@ jobs:
 
             echo "Running Docker Compose..."
 
-            # docker pull ghcr.io/${{ env.REPO_OWNER_LC }}/dummy-payment-app:${{ github.sha }}
-            # docker tag ghcr.io/${{ env.REPO_OWNER_LC }}/dummy-payment-app:${{ github.sha }}dummy-payment-app:latest
+            # docker pull ghcr.io/${{ env.REPO_OWNER_LC }}/dummy_payment_app:${{ github.sha }}
+            # docker tag ghcr.io/${{ env.REPO_OWNER_LC }}/dummy_payment_app:${{ github.sha }}dummy_payment_app:latest
             # docker compose up -d --remove-orphans --force-recreate
 
-            # docker pull ghcr.io/${{ env.REPO_OWNER_LC }}/dummy-payment-app:latest
+            # docker pull ghcr.io/${{ env.REPO_OWNER_LC }}/dummy_payment_app:latest
             # docker compose up -d --remove-orphans --force-recreate
 
-            docker compose pull dummy-payment-app
-            docker compose up -d --no-deps dummy-payment-app
+            docker compose pull dummy_payment_app
+            docker compose up -d --no-deps dummy_payment_app
 
             echo "Cleaning up old Docker images..."
             docker image prune -af
