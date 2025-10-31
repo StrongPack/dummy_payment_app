@@ -1,0 +1,23 @@
+services:
+  dummy-payment-app:
+    image: ghcr.io/strongpack/storefront:latest
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile
+    container_name: dummy-payment-app
+    restart: unless-stopped
+    ports:
+      - "3012:3001"
+    environment:
+      - PORT=3001
+      - APP_DOMAIN=https://saleor.20pack.ir/dummy
+      - SALEOR_API_URL=https://saleor.20pack.ir/graphql/
+    networks:
+      - strongpack-network
+    env_file:
+      - ./.env
+
+networks:
+  strongpack-network:
+    # name: strongpack-network
+    external: true
