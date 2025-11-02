@@ -16,6 +16,8 @@ services:
       - APP_DOMAIN=https://20pack.ir/dummy/
       - SALEOR_API_URL=https://saleor.20pack.ir/graphql/
       - ALLOWED_DOMAIN_PATTERN=.*
+      - NODE_ENV=production
+      # - ALLOWED_DOMAIN_PATTERN=(saleor\.20pack\.ir|localhost)
     networks:
       - strongpack-network
     env_file:
