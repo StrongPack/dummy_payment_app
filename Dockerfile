@@ -27,11 +27,11 @@ RUN pnpm install --frozen-lockfile
 RUN pnpm build
 
 EXPOSE 3001
-ENV PORT=3001
+# ENV PORT=3001
 # CMD ["pnpm", "start"]
-# CMD ["pnpm", "start", "-H", "0.0.0.0", "-p", "3001"]
+CMD ["pnpm", "start", "-H", "0.0.0.0", "-p", "3001"]
 
 # CMD ["pnpm", "dev"]
-CMD ["pnpm", "dev", "-H", "0.0.0.0", "-p", "3001"]
+# CMD ["pnpm", "dev", "-H", "0.0.0.0", "-p", "3001"]
 
 
