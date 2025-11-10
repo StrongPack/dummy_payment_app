@@ -3,7 +3,7 @@ import { SaleorApp } from "@saleor/app-sdk/saleor-app";
 import { invariant } from "./lib/invariant";
 export let apl: APL;
 switch (process.env.APL) {
-  case "redis": {
+  case "redis":
     const redisUrl = process.env.REDIS_URL;
     apl = new RedisAPL(redisUrl);
     break;
