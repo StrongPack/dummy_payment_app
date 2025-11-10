@@ -2,21 +2,21 @@ FROM node:20.12-alpine
 
 WORKDIR /app
 
-# 🧰 Install required system dependencies
+# 🧰 Install build dependencies (for ioredis / hiredis)
 RUN apk add --no-cache libc6-compat python3 make g++
 
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 
-RUN corepack enable
+RUN corepack enable && corepack prepare pnpm@9.2.0 --activate
 
-# 🧩 Copy only package files first (for better caching)
+# 🧩 Copy package files for caching
 COPY package.json pnpm-lock.yaml ./
 
-# 🧩 Install dependencies
+# 🧩 Install dependencies (with native build support)
 RUN pnpm install --frozen-lockfile
 
-# 🧩 Copy the rest of your app
+# 🧩 Copy app source after dependencies are cached
 COPY . .
 
 RUN pnpm build
