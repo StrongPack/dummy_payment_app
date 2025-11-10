@@ -11,8 +11,7 @@
     "generate": "graphql-codegen",
     "test": "vitest",
     "test:watch": "vitest --watch",
-    "test:coverage": "vitest run --coverage",
-    "postinstall": "patch-package"
+    "test:coverage": "vitest run --coverage"
   },
   "saleor": {
     "schemaVersion": "3.19"
