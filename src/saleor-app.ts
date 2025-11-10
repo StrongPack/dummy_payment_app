@@ -1,35 +1,45 @@
-import { APL, FileAPL, SaleorCloudAPL, UpstashAPL } from "@saleor/app-sdk/APL";
+import { APL, FileAPL, RedisAPL, UpstashAPL } from "@saleor/app-sdk/APL";
 import { SaleorApp } from "@saleor/app-sdk/saleor-app";
-import { invariant } from "./lib/invariant";
+import { createLogger, loggerContext } from "./lib/logger";
 
-/**
- * By default auth data are stored in the `.auth-data.json` (FileAPL).
- * For multi-tenant applications and deployments please use UpstashAPL.
- *
- * To read more about storing auth data, read the
- * [APL documentation](https://github.com/saleor/saleor-app-sdk/blob/main/docs/apl.md)
- */
-export let apl: APL;
-switch (process.env.APL) {
-  case "saleor-cloud":
-    const token = process.env.REST_APL_TOKEN;
-    const endpoint = process.env.REST_APL_ENDPOINT;
+const logger = createLogger("saleor-app");
 
-    invariant(token);
-    invariant(endpoint);
+export const getAPL = (): APL => {
+  const apl = process.env.APL;
 
-    apl = new SaleorCloudAPL({ token, resourceUrl: endpoint });
-    break;
-  case "upstash":
-    // Require `UPSTASH_URL` and `UPSTASH_TOKEN` environment variables
-    apl = new UpstashAPL();
-    break;
-  default:
-    apl = new FileAPL({
-      fileName: process.env.FILE_APL_PATH,
-    });
-}
+  logger.info(`Using APL: ${apl}`);
+
+  switch (apl) {
+    case "redis": {
+      // New case for self-hosted Redis
+      const redisUrl = process.env.REDIS_URL;
+      if (!redisUrl) {
+        logger.error("REDIS_URL not set for redis APL");
+        throw new Error("REDIS_URL not set for redis APL. Please set REDIS_URL environment variable.");
+      }
+      logger.info(`Using Redis APL with url: ${redisUrl}`);
+      return new RedisAPL(redisUrl);
+    }
+    case "upstash":
+      logger.info("Using Upstash APL");
+
+      const restURL = process.env.UPSTASH_URL;
+      const restToken = process.env.UPSTASH_TOKEN;
+
+      if (!restURL || !restToken) {
+        throw new Error("Missing UPSTASH_URL or UPSTASH_TOKEN env variables. Please set them.");
+      }
+
+      return new UpstashAPL({
+        restURL,
+        restToken,
+      });
+    default:
+      logger.info("Using File APL");
+      return new FileAPL();
+  }
+};
 
 export const saleorApp = new SaleorApp({
-  apl,
+  apl: getAPL(),
 });
