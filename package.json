@@ -10,6 +10,9 @@
     "fetch-schema": "curl https://raw.githubusercontent.com/saleor/saleor/${npm_package_saleor_schemaVersion}/saleor/graphql/schema.graphql > graphql/schema.graphql",
     "generate": "graphql-codegen",
     "test": "vitest"
+    "test:watch": "vitest --watch",
+    "test:coverage": "vitest run --coverage",
+    "postinstall": "patch-package"
   },
   "saleor": {
     "schemaVersion": "3.19"
@@ -46,6 +49,7 @@
     "@vitejs/plugin-react": "4.2.1",
     "graphql": "16.8.1",
     "graphql-tag": "2.12.6",
+    "ioredis": "^5.3.2",
     "jsdom": "20.0.3",
     "modern-errors": "7.0.1",
     "modern-errors-serialize": "6.1.0",
