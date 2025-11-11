@@ -15,9 +15,9 @@ services:
       - APP_API_BASE_URL=https://payment.20pack.ir
       # - APP_DOMAIN=https://20pack.ir/dummy/
       - SALEOR_API_URL=https://saleor.20pack.ir/graphql/
-      - ALLOWED_DOMAIN_PATTERN=.*
+      # - ALLOWED_DOMAIN_PATTERN=.*
+      - ALLOWED_DOMAIN_PATTERN=https://saleor\.20pack\.ir(/graphql)?/?$
       - NODE_ENV=production
-      # - ALLOWED_DOMAIN_PATTERN=https://saleor\.20pack\.ir(/graphql)?/?$
       - APL=file
       - FILE_APL_PATH=/home/strongpack/accounting_data/payment-apl.json
     networks:
