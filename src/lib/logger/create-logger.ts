@@ -7,9 +7,9 @@ import { loggerContext } from "@/logger-context";
 
 logger.settings.maskValuesOfKeys = ["metadata", "username", "password", "apiKey"];
 
-if (process.env.NODE_ENV !== "production") {
+// if (process.env.NODE_ENV !== "production") {
   attachLoggerConsoleTransport(logger);
-}
+// }
 
 if (typeof window === "undefined") {
   attachLoggerSentryTransport(logger);
