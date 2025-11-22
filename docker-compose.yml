@@ -19,11 +19,14 @@ services:
       - ALLOWED_DOMAIN_PATTERN=https://saleor\.20pack\.ir(/graphql)?/?$
       - NODE_ENV=production
       - APL=file
-      - FILE_APL_PATH=/home/strongpack/accounting_data/payment-apl.json
+      - FILE_APL_PATH=/app/apl/payment-apl.json
     networks:
       - strongpack-network
     env_file:
       - ./.env
+    volumes:
+      - /home/strongpack/accounting_data/payment-apl:/app/apl
+
 
 networks:
   strongpack-network:
