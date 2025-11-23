@@ -77,6 +77,7 @@ export default wrapWithLoggerContext(
         externalUrl: urlGenerator.getTransactionDetailsUrl(payload.transaction.id),
       };
 
+      console.log("===SUCCESS RESPONSE===", successResponse);
       logger.info("Returning response to Saleor", { response: successResponse });
 
       return res.status(200).json(successResponse);
